@@ -1,5 +1,7 @@
 # better-chatgpt
 
+# This project is Deprecated. Use this instead: https://github.com/JaredJacobsen/chat-gpt-voice-recognition-userscript
+
 A Chrome extension to enhance ChatGPT with voice input and open it as a sidebar on any page.
 
 To install:
