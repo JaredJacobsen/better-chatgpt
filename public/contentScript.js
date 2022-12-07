@@ -8,16 +8,18 @@ if (window.location.href === 'https://chat.openai.com/chat') {
 	let transcript = '';
 	var recognition = new webkitSpeechRecognition();
 	recognition.continuous = false;
-	recognition.interimResults = true;
+	recognition.interimResults = false;
 
 	let recognizing = false;
 	recognition.onstart = function () {
 		textArea.parentElement.style.borderColor = 'red';
-		textArea.value = '';
+		//textArea.value = '';
 		recognizing = true;
 		transcript = '';
 	};
 	recognition.onresult = function (event) {
+		// Get the current value of the text area
+		var enteredText = textArea.value;
 		transcript = '';
 		for (var i = event.resultIndex; i < event.results.length; ++i) {
 			transcript += event.results[i][0].transcript;
@@ -26,12 +28,13 @@ if (window.location.href === 'https://chat.openai.com/chat') {
 		textArea.value = transcript;
 		let ev = new Event('input', { bubbles: true});
         	textArea.dispatchEvent(ev);
+		textArea.value = enteredText + " " + transcript;
 	};
 	recognition.onend = function () {
 		textArea.parentElement.style.borderColor = 'lightgray';
 		recognizing = false;
 		transcript = '';
-		textArea.parentElement.querySelector('button').click();
+		//textArea.parentElement.querySelector('button').click();
 	};
 	recognition.onerror = function (event) {
 		console.log('error', event);
